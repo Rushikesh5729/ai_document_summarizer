@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Document Summarizer</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">📄</span>
+        <span>AI Document Summarizer</span>
+      </div>
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="summarize">Summarize</button>
+        <button class="tab-btn" data-tab="history">History</button>
+      </nav>
+    </header>
+
+    <main class="content">
+      <!-- SUMMARIZE TAB -->
+      <section id="tab-summarize" class="tab-panel active">
+        <div class="panel-grid">
+          <div class="card">
+            <h2>Input Document</h2>
+
+            <div class="input-mode-switch">
+              <button class="mode-btn active" data-mode="text">Paste Text</button>
+              <button class="mode-btn" data-mode="file">Upload File</button>
+            </div>
+
+            <div id="mode-text" class="input-mode active">
+              <textarea id="textInput" placeholder="Paste your long-form text here..." rows="14"></textarea>
+              <div class="hint" id="charCount">0 characters</div>
+            </div>
+
+            <div id="mode-file" class="input-mode">
+              <label class="dropzone" id="dropzone">
+                <input type="file" id="fileInput" accept=".txt,.pdf" hidden />
+                <span id="dropzoneText">Click to choose a .txt or .pdf file, or drag it here</span>
+              </label>
+            </div>
+
+            <div class="options-row">
+              <label>
+                Title (optional)
+                <input type="text" id="titleInput" placeholder="e.g. Q3 Research Notes" />
+              </label>
+              <label>
+                Summary length
+                <select id="lengthSelect">
+                  <option value="short">Short</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="detailed">Detailed</option>
+                </select>
+              </label>
+              <label>
+                Tags (comma separated)
+                <input type="text" id="tagsInput" placeholder="e.g. research, finance" />
+              </label>
+            </div>
+
+            <button id="summarizeBtn" class="primary-btn">✨ Generate Summary</button>
+            <div id="errorBox" class="error-box hidden"></div>
+          </div>
+
+          <div class="card">
+            <h2>Summary Result</h2>
+            <div id="resultEmpty" class="empty-state">
+              Your generated summary will appear here.
+            </div>
+            <div id="resultBox" class="result-box hidden">
+              <div class="result-meta">
+                <span id="resultProvider" class="badge"></span>
+                <span id="resultStats" class="muted"></span>
+              </div>
+              <p id="resultSummary" class="summary-text"></p>
+              <div id="resultTags" class="tag-list"></div>
+              <div class="result-actions">
+                <button id="exportBtn" class="secondary-btn">⬇ Export as PDF</button>
+                <button id="copyBtn" class="secondary-btn">📋 Copy Summary</button>
+              </div>
+            </div>
+            <div id="loadingBox" class="loading-box hidden">
+              <div class="spinner"></div>
+              <span>Generating summary…</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HISTORY TAB -->
+      <section id="tab-history" class="tab-panel">
+        <div class="card">
+          <div class="history-header">
+            <h2>Summarization History</h2>
+            <input type="text" id="historySearch" placeholder="Search history..." />
+          </div>
+          <div id="historyList" class="history-list">
+            <div class="empty-state">No summaries yet — generate one from the Summarize tab.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Built as an MVP full-stack demo — frontend + Express backend + SQLite + AI API integration.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
